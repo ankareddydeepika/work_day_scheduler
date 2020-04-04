@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <title>Work Day Scheduler</title>
+</head>
+
+<body>
+  <header class="jumbotron">
+    <h1 class="display-3">Work Day Scheduler</h1>
+    <p class="lead">A simple calendar app for scheduling your work day</p>
+    <p id="currentDay" class="lead"></p>
+  </header>
+  <div class="container">
+    <table class="table">
+      <!-- Timeblocks go here -->
+    </table>
+  </div>
+  </div>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+
+  <script type="text/javascript">
+
+    $(document).ready(function () {
+     var finalRows = [];
+
+
+    //Declared a class  to store row info
+      class RowInfo {
+        constructor(information, eventStartTime){
+          this.eventInfo = information;
+          this.startTime = eventStartTime;
+        }
+      }
+      
+      function buildRows(){
+        var rowInfo1 = new RowInfo("", "9 AM");
+        var rowInfo2 = new RowInfo("", "10 AM");
+        var rowInfo3 = new RowInfo("", "11 AM");
+        var rowInfo4 = new RowInfo("", "12 PM");
+        var rowInfo5 = new RowInfo("", "1 PM");
+        var rowInfo6 = new RowInfo("", "2 PM");
+        var rowInfo7 = new RowInfo("", "3 PM");
+        var rowInfo8 = new RowInfo("", "4 PM");
+        var rowInfo9 = new RowInfo("", "5 PM");
+        finalRows = [rowInfo1, rowInfo2, rowInfo3, rowInfo4, rowInfo5, rowInfo6, rowInfo7, rowInfo8, rowInfo9];
+      }
+
+      function populateRows(){
+        debugger;
+        for(i=0; i<finalRows.length; i++){
+          var rowTime = finalRows[i]
+        // Created rows and coloumns
+          var a = $("<div>");
+          a.addClass("row time-block")
+          var b = $("<div>");
+          b.addClass("col-sm-2 hour");
+          b.text(rowTime.startTime);
+          var c = $("<div>");
+          c.addClass("col-sm-8");
+          c.text(rowTime.eventInfo)
+          var d = $("<div>");
+          d.addClass("col-sm-2 saveBtn");
+          var e = $("<i>");
+          e.addClass("fa fa-lock");
+          $(".table").append(a);
+          a.append(b);
+          a.append(c);
+          a.append(d);
+          d.append(e);
+        }
+        
+      }
+
+      //Created array of months
+      var monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+      var date = new Date();
+      var month = monthNames[date.getMonth()];
+      var day = date.getDate();
+      var year = date.getFullYear();
+      var output = day + " " + month + " " + year;
+      $("#currentDay").text(output);
+      debugger;
+      // calling functions
+      buildRows()
+      populateRows();
+
+    })
+
+
+
+  </script>
+
+
+</body>
+
+</html>
