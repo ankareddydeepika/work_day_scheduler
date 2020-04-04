@@ -36,29 +36,33 @@
 
     //Declared a class  to store row info
       class RowInfo {
-        constructor(information, eventStartTime){
+        constructor(information, eventStartTime, startTimeId){
           this.eventInfo = information;
           this.startTime = eventStartTime;
+          this.time = startTimeId;
         }
       }
       
       function buildRows(){
-        var rowInfo1 = new RowInfo("", "9 AM");
-        var rowInfo2 = new RowInfo("", "10 AM");
-        var rowInfo3 = new RowInfo("", "11 AM");
-        var rowInfo4 = new RowInfo("", "12 PM");
-        var rowInfo5 = new RowInfo("", "1 PM");
-        var rowInfo6 = new RowInfo("", "2 PM");
-        var rowInfo7 = new RowInfo("", "3 PM");
-        var rowInfo8 = new RowInfo("", "4 PM");
-        var rowInfo9 = new RowInfo("", "5 PM");
+        var rowInfo1 = new RowInfo("", "9 AM", 9);
+        var rowInfo2 = new RowInfo("", "10 AM", 10);
+        var rowInfo3 = new RowInfo("", "11 AM", 11);
+        var rowInfo4 = new RowInfo("", "12 PM", 12);
+        var rowInfo5 = new RowInfo("", "1 PM", 13);
+        var rowInfo6 = new RowInfo("", "2 PM", 14);
+        var rowInfo7 = new RowInfo("", "3 PM", 15);
+        var rowInfo8 = new RowInfo("", "4 PM", 16);
+        var rowInfo9 = new RowInfo("", "5 PM", 17);
         finalRows = [rowInfo1, rowInfo2, rowInfo3, rowInfo4, rowInfo5, rowInfo6, rowInfo7, rowInfo8, rowInfo9];
       }
 
       function populateRows(){
-        debugger;
+        debugger
         for(i=0; i<finalRows.length; i++){
+          var date = new Date();
           var rowTime = finalRows[i]
+          var currentHour = date.getHours();
+
         // Created rows and coloumns
           var a = $("<div>");
           a.addClass("row time-block")
@@ -68,6 +72,18 @@
           var c = $("<div>");
           c.addClass("col-sm-8");
           c.text(rowTime.eventInfo)
+          //Colored the events
+          console.log(currentHour);
+          if(currentHour < rowTime.time){
+            c.addClass("past");
+          }
+          else if(currentHour === rowTime.time){
+            c.addClass("present");
+          }
+          else{
+            c.addClass("future");
+          }
+
           var d = $("<div>");
           d.addClass("col-sm-2 saveBtn");
           var e = $("<i>");
