@@ -31,19 +31,17 @@
   <script type="text/javascript">
 
     $(document).ready(function () {
-     var finalRows = [];
-
-
-    //Declared a class  to store row info
+      var finalRows = [];
+      //Declared a class  to store row info
       class RowInfo {
-        constructor(information, eventStartTime, startTimeId){
+        constructor(information, eventStartTime, startTimeId) {
           this.eventInfo = information;
           this.startTime = eventStartTime;
           this.time = startTimeId;
         }
       }
-      
-      function buildRows(){
+
+      function buildRows() {
         var rowInfo1 = new RowInfo("", "9 AM", 9);
         var rowInfo2 = new RowInfo("", "10 AM", 10);
         var rowInfo3 = new RowInfo("", "11 AM", 11);
@@ -56,35 +54,40 @@
         finalRows = [rowInfo1, rowInfo2, rowInfo3, rowInfo4, rowInfo5, rowInfo6, rowInfo7, rowInfo8, rowInfo9];
       }
 
-      function populateRows(){
-        debugger
-        for(i=0; i<finalRows.length; i++){
+      function populateRows() {
+
+        for (i = 0; i < finalRows.length; i++) {
           var date = new Date();
           var rowTime = finalRows[i]
           var currentHour = date.getHours();
-
-        // Created rows and coloumns
+          // Created rows and coloumns
           var a = $("<div>");
           a.addClass("row time-block")
           var b = $("<div>");
           b.addClass("col-sm-2 hour");
           b.text(rowTime.startTime);
-          var c = $("<div>");
+          var c = $('<div id=div' + rowTime.time.toString() + ' />');
+          c.attr("contenteditable", 'true')
           c.addClass("col-sm-8");
-          c.text(rowTime.eventInfo)
+          //Retriving text from localstorage
+          var key = "#div" + rowTime.time.toString()
+          var rowText = localStorage.getItem(key); //key = #div9
+          c.text(rowText)
+
           //Colored the events
           console.log(currentHour);
-          if(currentHour < rowTime.time){
+          if (currentHour > rowTime.time) {
             c.addClass("past");
           }
-          else if(currentHour === rowTime.time){
+          else if (currentHour === rowTime.time) {
             c.addClass("present");
           }
-          else{
+          else {
             c.addClass("future");
           }
 
-          var d = $("<div>");
+          var d = $('<div id="' + rowTime.time.toString() + '" />');
+          // var d = $('<div id=9 />')
           d.addClass("col-sm-2 saveBtn");
           var e = $("<i>");
           e.addClass("fa fa-lock");
@@ -93,8 +96,16 @@
           a.append(c);
           a.append(d);
           d.append(e);
+          var buttonId = "#" + rowTime.time.toString()
+
+          $(buttonId).click(function () {
+            var divIdforText = "#div" + $(this).attr('id')   //#div9
+            var text = $(divIdforText).text() //enterd text
+            localStorage.setItem(divIdforText, text);  //#div9 - entertd text
+          });
+
         }
-        
+
       }
 
       //Created array of months
@@ -106,18 +117,14 @@
       var year = date.getFullYear();
       var output = day + " " + month + " " + year;
       $("#currentDay").text(output);
-      debugger;
+
       // calling functions
       buildRows()
       populateRows();
 
     })
 
-
-
   </script>
-
-
 </body>
 
 </html>

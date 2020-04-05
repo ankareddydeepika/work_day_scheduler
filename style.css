@@ -77,3 +77,11 @@ body {
     padding-top: 17%;
     font-size: 1.5em;
   }
+
+  .col-sm-8{
+   
+    padding: 30px;
+    font-size: medium;
+    font-weight: bold;
+    color: black;
+  }
