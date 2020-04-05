@@ -22,3 +22,5 @@ Then the saved events persist.
 5. Used local storage to store the event data.
 
 Application Link:  https://ankareddydeepika.github.io/work_day_scheduler/
+
+![day planner](./Assets/Day_Planner.gif)
